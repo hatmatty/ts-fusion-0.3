@@ -1,0 +1,54 @@
+{
+	"name": "@rbxts/fusion-0.3-temp",
+	"version": "0.3.0-fusion",
+	"description": "Typescript Fusion 0.3",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/team-fireworks/hotfusion.git"
+	},
+	"contributors": [
+		"dphfox",
+		"znotfireman"
+	],
+	"keywords": [
+		"fusion",
+		"hotfusion",
+		"roblox",
+		"declarative",
+		"ui",
+		"reactive"
+	],
+	"main": "out/init.luau",
+	"typings": "out/index.d.ts",
+	"scripts": {
+		"build": "rbxtsc --rojo ./build.project.json",
+		"watch": "rbxtsc -w --rojo ./build.project.json",
+		"prepublishOnly": "pnpm run build"
+	},
+	"files": [
+		"out",
+		"!**/*.tsbuildinfo"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"@rbxts/compiler-types": "2.3.0-types.1",
+		"@rbxts/types": "^1.0.790",
+		"@typescript-eslint/eslint-plugin": "^7.16.1",
+		"@typescript-eslint/parser": "^7.16.1",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"eslint-plugin-roblox-ts": "^0.0.36",
+		"prettier": "^3.3.3",
+		"roblox-ts": "^3.0.0-dev-d48bd20",
+		"typescript": "^5.5.3"
+	},
+	"dependencies": {
+		"@rbxts/ui-labs": "^2.3.1"
+	}
+}
+
+
