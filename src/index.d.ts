@@ -1,5 +1,6 @@
 import * as Types from "./Types";
-import newJsx from "./TS/jsx";
+
+/// <reference types="@rbxts/types"/>
 
 /**
  * The entry point to the Fusion library.
@@ -8,7 +9,7 @@ export = Fusion;
 export as namespace Fusion;
 
 declare namespace Fusion {
-	export type ScopeFusion = Scope<typeof Fusion>
+	export type ScopeFusion = Scope<typeof Fusion>;
 	export type Animatable = Types.Animatable;
 	export type UsedAs<T> = Types.UsedAs<T>;
 	export type Child = Types.Child;
