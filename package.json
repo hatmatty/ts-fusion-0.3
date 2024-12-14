@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/fusion-0.3-temp",
-	"version": "0.4.1",
+	"version": "0.3.0-fusion",
 	"description": "Typescript Fusion 0.3",
 	"license": "MIT",
 	"repository": {
@@ -22,7 +22,8 @@
 	"main": "out/init.luau",
 	"typings": "out/index.d.ts",
 	"scripts": {
-		"build": "rbxtsc --rojo",
+		"build": "rbxtsc --rojo ./build.project.json",
+		"watch": "rbxtsc -w --rojo ./build.project.json",
 		"prepublishOnly": "pnpm run build"
 	},
 	"files": [
@@ -46,6 +47,7 @@
 		"typescript": "^5.5.3"
 	},
 	"dependencies": {
+		"@rbxts/ui-labs": "^2.3.1"
 	}
 }
 

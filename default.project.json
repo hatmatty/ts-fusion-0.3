@@ -1,5 +1,5 @@
 {
-	"name": "fusion-0.3-temp",
+	"name": "roblox-ts-game",
 	"globIgnorePaths": [
 		"**/package.json",
 		"**/tsconfig.json"

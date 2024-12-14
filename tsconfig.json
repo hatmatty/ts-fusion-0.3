@@ -21,7 +21,7 @@
 		"outDir": "out",
 		"baseUrl": "src", // remove
 		"incremental": true,
-		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo", // re-add
-		"declaration": true, // re-add
+		// "tsBuildInfoFile": "out/tsconfig.tsbuildinfo", // re-add
+		// "declaration": true, // re-add
 	}
 }
