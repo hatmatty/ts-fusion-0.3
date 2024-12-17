@@ -58,7 +58,7 @@ return {
 		BorderColor3 = Color3.new(0, 0, 0),
 		BorderSizePixel = 0,
 
-		AutoButtonColor = false,
+		AutoButtonColor = true,
 
 		Font = Enum.Font.SourceSans,
 		Text = "",
@@ -90,7 +90,7 @@ return {
 		BorderColor3 = Color3.new(0, 0, 0),
 		BorderSizePixel = 0,
 
-		AutoButtonColor = false
+		AutoButtonColor = true
 	},
 
 	ViewportFrame = {

@@ -28,9 +28,14 @@ local function evaluate(
 		if not needsComputation then
 			for dependency in target.dependencySet do
 				evaluate(dependency, false)
-				if dependency.lastChange > target.lastChange then
-					needsComputation = true
-					break
+				if target.lastCompute then
+					if dependency.lastChange > target.lastCompute then
+						needsComputation = true
+					end
+				else
+					if dependency.lastChange > target.lastChange then
+						needsComputation = true
+					end
 				end
 			end
 		end
@@ -42,6 +47,7 @@ local function evaluate(
 			end
 			target.validity = "busy"
 			targetMeaningfullyChanged = target:_evaluate() or firstEvaluation
+			target.lastCompute = os.clock()
 		end
 		if targetMeaningfullyChanged then
 			target.lastChange = os.clock()
