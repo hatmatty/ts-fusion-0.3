@@ -76,7 +76,7 @@ local function jsx(
 		External.logError("cannotCreateClass", nil, component)
 	end
 
-	local appliedProps: Types.PropertyTable = defaultProps[className] or {}
+	local appliedProps: Types.PropertyTable = if defaultProps[className] then table.clone(defaultProps[className]) else {}
 	for name, value in pairs(props) do
 		if (name == "scope" or name == "Uses") then
 			continue

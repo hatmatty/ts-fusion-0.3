@@ -1,4 +1,5 @@
-import Fusion from "index";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Fusion from ".";
 import jsx from "./TS/jsx";
 
 export type Error = {
@@ -57,10 +58,8 @@ export type Task =
 export type Scope<Constructors = unknown> = Task[] & ConvertToMethod<Constructors>;
 
 type ConvertToMethod<T> = {
-	[K in keyof T]: ToScopeConstructor<K> extends never
-		? T[K]
-		: ToScopeConstructor<K>;
-}
+	[K in keyof T]: ToScopeConstructor<K> extends never ? T[K] : ToScopeConstructor<K>;
+};
 
 /** An object which uses a scope to dictate how long it lives. */
 export interface ScopedObject {
@@ -119,32 +118,32 @@ export type Value<T, S = T> = StateObject<T> & {
 
 // :D
 type ToScopeConstructor<T> = T extends "Value"
-		? ValueConstructorScoped
+	? ValueConstructorScoped
 	: T extends "Computed"
 		? ComputedConstructorScoped
-	: T extends "ForKeys"
-		? ForKeysConstructorScoped
-	: T extends "ForValues"
-		? ForValuesConstructorScoped
-	: T extends "ForPairs"
-		? ForPairsConstructorScoped
-	: T extends "Tween"
-		? TweenConstructorScoped
-	: T extends "Spring"
-		? SpringConstructorScoped
-	:  T extends "Hydrate"
-		? HydrateConstructorScoped
-	:  T extends "New"
-		? NewConstructorScoped
-	: T extends "innerScope" 
-		? DeriveScopeConstructorScoped
-	: T extends "deriveScope"
-		? DeriveScopeConstructorScoped
-	: T extends "Observer"
-		? ObserverConstructorScoped
-	: T extends "doCleanup"
-		? doCleanupScoped
-	: never;
+		: T extends "ForKeys"
+			? ForKeysConstructorScoped
+			: T extends "ForValues"
+				? ForValuesConstructorScoped
+				: T extends "ForPairs"
+					? ForPairsConstructorScoped
+					: T extends "Tween"
+						? TweenConstructorScoped
+						: T extends "Spring"
+							? SpringConstructorScoped
+							: T extends "Hydrate"
+								? HydrateConstructorScoped
+								: T extends "New"
+									? NewConstructorScoped
+									: T extends "innerScope"
+										? DeriveScopeConstructorScoped
+										: T extends "deriveScope"
+											? DeriveScopeConstructorScoped
+											: T extends "Observer"
+												? ObserverConstructorScoped
+												: T extends "doCleanup"
+													? doCleanupScoped
+													: never;
 
 // below is laggy
 // type ToScopeConstructor<T> = T extends ValueConstructor
@@ -210,9 +209,38 @@ export type ForPairsConstructorScoped = <In, KO, VO, S>(
 
 // oldInput: UsedAs<Map<KI, VI>>
 
-type Key<In> = In extends Array<any> ? number : In extends Map<infer K, any> ? K : In extends Set<infer K> ? K : In extends Record<infer K, any> ? K : never
-type Val<In> = In extends Array<infer V> ? V : In extends Map<any, infer V> ? V : In extends Set<any> ? true : In extends Record<any, infer V> ? V : never
-type Reconstruct<In, K, V> = In extends Array<any> ? Array<V> : In extends Map<any, any> ? Map<K, V> : In extends Set<any> ? Set<K> : In extends Record<any, any> ? (K extends string | number | symbol ? Record<K, V> : never) : Map<K,V>
+type Key<In> =
+	In extends Array<any>
+		? number
+		: In extends Map<infer K, any>
+			? K
+			: In extends Set<infer K>
+				? K
+				: In extends Record<infer K, any>
+					? K
+					: never;
+type Val<In> =
+	In extends Array<infer V>
+		? V
+		: In extends Map<any, infer V>
+			? V
+			: In extends Set<any>
+				? true
+				: In extends Record<any, infer V>
+					? V
+					: never;
+type Reconstruct<In, K, V> =
+	In extends Array<any>
+		? Array<V>
+		: In extends Map<any, any>
+			? Map<K, V>
+			: In extends Set<any>
+				? Set<K>
+				: In extends Record<any, any>
+					? K extends string | number | symbol
+						? Record<K, V>
+						: never
+					: Map<K, V>;
 
 export type ForKeysConstructor = <In, KO, S>(
 	scope: Scope<S>,
@@ -336,8 +364,6 @@ export type PropertyTable<T extends Instance> = Partial<
 		Map<SpecialKey, unknown>
 >;
 
-
-
 export type NewConstructor = <T extends keyof CreatableInstances>(
 	scope: Scope<unknown>,
 	className: T,
@@ -379,7 +405,7 @@ export type DeriveScopeConstructor = (<S>(scope: Scope<S>) => Scope<S>) &
 		d: D & {},
 		e: E & {},
 		f: F & {},
-	) => Scope<S & A & B & C & D & E & F>)
+	) => Scope<S & A & B & C & D & E & F>);
 export type DeriveScopeConstructorScoped = (<S>(this: Scope<S>) => Scope<S>) &
 	(<S, A>(this: Scope<S>, a: A & {}) => Scope<S & A>) &
 	(<S, A, B>(this: Scope<S>, a: A & {}, b: B & {}) => Scope<S & A & B>) &
@@ -401,7 +427,7 @@ export type DeriveScopeConstructorScoped = (<S>(this: Scope<S>) => Scope<S>) &
 		d: D & {},
 		e: E & {},
 		f: F & {},
-	) => Scope<S & A & B & C & D & E & F>) 
+	) => Scope<S & A & B & C & D & E & F>);
 
 export type ScopedConstructor = (() => Scope<{}>) &
 	(<A>(a: A & {}) => Scope<A>) &
@@ -416,7 +442,7 @@ export type ScopedConstructor = (() => Scope<{}>) &
 		d: D & {},
 		e: E & {},
 		f: F & {},
-	) => Scope<A & B & C & D & E & F>)
+	) => Scope<A & B & C & D & E & F>);
 
 export type ContextualConstructor = <T>(defaultValue: T) => Contextual<T>;
 
@@ -426,8 +452,8 @@ export type Safe = <Success, Fail>(callbacks: {
 	fallback: (err: unknown) => Fail;
 }) => Success | Fail;
 
-type doCleanup = (task: Task) => void
-type doCleanupScoped = (this: Task) => void
+type doCleanup = (task: Task) => void;
+type doCleanupScoped = (this: Task) => void;
 
 export type Fusion = {
 	version: Version;
